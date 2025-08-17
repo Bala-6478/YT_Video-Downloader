@@ -1,0 +1,99 @@
+/* static/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    color: #1c1e21;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    text-align: center;
+    color: #606770;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+input[type="file"],
+select,
+input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+input[type="file"] {
+    padding: 0.5rem;
+}
+
+.radio-group label {
+    display: inline-block;
+    margin-right: 1.5rem;
+    font-weight: 400;
+}
+.radio-group input {
+    margin-right: 0.3rem;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    background-color: #1877f2;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #166fe5;
+}
+
+.flash-error {
+    background-color: #fbebeb;
+    color: #c00;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
