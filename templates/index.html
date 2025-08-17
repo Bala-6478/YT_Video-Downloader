@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Universal Image Converter</h1>
+        <p>Upload an image and choose your conversion options below.</p>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-error">
+              {{ messages[0] }}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form action="/convert" method="post" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="file">1. Select an Image to Upload</label>
+                <input type="file" id="file" name="file" required>
+            </div>
+
+            <div class="form-group">
+                <label>2. Choose Conversion Mode</label>
+                <div class="radio-group">
+                    <input type="radio" id="mode_standard" name="mode" value="standard" checked>
+                    <label for="mode_standard">Standard</label>
+                    <input type="radio" id="mode_tnpc" name="mode" value="tnpc">
+                    <label for="mode_tnpc">TNPC Compliant</label>
+                </div>
+            </div>
+
+            <div id="standard_options">
+                <div class="form-group">
+                    <label for="format">Convert to Format:</label>
+                    <select id="format" name="format">
+                        <option value="jpg">JPEG</option>
+                        <option value="png">PNG</option>
+                        <option value="webp">WEBP</option>
+                        <option value="ico">ICO (Icon)</option>
+                        <option value="bmp">BMP</option>
+                        <option value="gif">GIF</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="quality_option">
+                    <label for="quality">Quality (for JPG/WEBP): <span id="quality_value">90</span></label>
+                    <input type="range" id="quality" name="quality" min="1" max="100" value="90">
+                </div>
+                
+                <div class="form-group" id="ico_option" style="display: none;">
+                    <label for="ico_sizes">ICO Sizes (comma-separated):</label>
+                    <input type="text" id="ico_sizes" name="ico_sizes" value="16,32,48">
+                </div>
+            </div>
+
+            <button type="submit">Convert and Download</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to show/hide options dynamically
+        const modeStandard = document.getElementById('mode_standard');
+        const modeTnpc = document.getElementById('mode_tnpc');
+        const standardOptions = document.getElementById('standard_options');
+        const formatSelect = document.getElementById('format');
+        const qualityOption = document.getElementById('quality_option');
+        const icoOption = document.getElementById('ico_option');
+        const qualitySlider = document.getElementById('quality');
+        const qualityValue = document.getElementById('quality_value');
+
+        function toggleOptions() {
+            // Show/hide based on Standard vs TNPC mode
+            standardOptions.style.display = modeStandard.checked ? 'block' : 'none';
+            
+            // Show/hide based on selected format
+            const selectedFormat = formatSelect.value;
+            qualityOption.style.display = ['jpg', 'webp'].includes(selectedFormat) ? 'block' : 'none';
+            icoOption.style.display = selectedFormat === 'ico' ? 'block' : 'none';
+        }
+
+        // Event listeners
+        modeStandard.addEventListener('change', toggleOptions);
+        modeTnpc.addEventListener('change', toggleOptions);
+        formatSelect.addEventListener('change', toggleOptions);
+        qualitySlider.addEventListener('input', () => {
+            qualityValue.textContent = qualitySlider.value;
+        });
+
+        // Initial call to set the correct state on page load
+        toggleOptions();
+    </script>
+</body>
+</html>
